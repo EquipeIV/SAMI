@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Relatórios</title>
+        <link rel="stylesheet" href="relatorioTransacao.css">
+</head>
+
+<body onload="tabelarEventosDoUsuarioLogado()">
+    
+    <div class="header">
+        <div class="Logo">
+           <a href="inicioIN.html"> <img src="https://media.discordapp.net/attachments/874750783491539005/986627412936786070/LOGO.png" class="imagemLogo"></a>
+        </div>
+
+        <div class="centraliza">
+        <div class="navbar">
+            <a class="nav" href="inicioOUT.html"> Logout </a>
+            <a class="nav"  href="relatorioTransacao.html"> Relatórios </a>
+            <a class="nav"  href="">Atualizar cadastro</a>
+            <a class="nav"  href="sobreIN.html"> Sobre </a>
+        </div>
+        </div>
+
+
+    </div>
+
+
+        <div class="mid">
+            <div class="titulo">
+                <h1> Relatório de transação</h1>
+            </div>
+            <div class="table" style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <th>ID EVENTO</th>
+                        <th>ID USUÁRIO</th>
+                        <th>NOME</th>
+                        <th>DATA</th>
+                        <th>HORÁRIO</th>
+                        <th>PLATAFORMA</th>
+                    </thead>
+                    <tbody id="eventosUsuario">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    
+        <div class="footer">
+            <label class="foot"> SENAI</label>
+        </div>
+    </div>
+    <script src="CRUDService.js"></script>
+</body>
+
+</html>
