@@ -13,12 +13,12 @@ var posicaoUsuarioDaLista
 var eventoAtualLogado
 var eventoAtualGeral
 var posicao = -1
-var idRegistroDeletar = document.getElementById("idRegistroDeletar")
-var idRegistroEditar = document.getElementById("idRegistroEditar")
+var idEventoDeletar = document.getElementById("idEventoDeletar")
+var idEventoEditar = document.getElementById("idEventoEditar")
 var novoValorEditar = document.getElementById("novoValorEditar")
 
-//var selectAtributosEvento = document.querySelector('#atributo')
-//selectAtributosEvento.addEventListener('change', function () { })
+var selectAtributosEvento = document.querySelector('#atributo')
+selectAtributosEvento.addEventListener('change', function () { })
 
 // ----- CONSTRUTOR -----
 
@@ -120,13 +120,13 @@ function tabelarTodosEventos() {
 
 function deletarEventoPorId() {
     listaDeEventos = JSON.parse(localStorage.getItem("eventosKey"))
-    if (!ehInputVazio(idRegistroDeletar.value)) {
-        if (existeId(idRegistroDeletar.value)) {
+    if (!ehInputVazio(idEventoDeletar.value)) {
+        if (existeId(idEventoDeletar.value)) {
             listaDeEventos.splice(posicao, 1)
             localStorage.setItem("eventosKey", JSON.stringify(listaDeEventos))
-            alert('Registro deletado!')
+            alert('Evento deletado!')
         } else {
-            alert(`O seguinte ID não existe: [${idRegistroDeletar.value}]`)
+            alert(`O seguinte ID não existe: [${idEventoDeletar.value}]`)
         }
     } else {
         alert("Campo não pode ser vazio!")
@@ -135,8 +135,8 @@ function deletarEventoPorId() {
 
 function editarEventoPorId() {
     listaDeEventos = JSON.parse(localStorage.getItem("eventosKey"))
-    if (!ehInputVazio(idRegistroEditar.value)) {
-        if (existeId(idRegistroEditar.value)) {
+    if (!ehInputVazio(idEventoEditar.value)) {
+        if (existeId(idEventoEditar.value)) {
             switch (selectAtributosEvento.value) {
                 case 'nome':
                     listaDeEventos[posicao].nomeUsuario = novoValorEditar.value
@@ -155,7 +155,7 @@ function editarEventoPorId() {
             alert('Registro editado!')
 
         } else {
-            alert(`O seguinte ID não existe: [${idRegistroEditar.value}]`)
+            alert(`O seguinte ID não existe: [${idEventoEditar.value}]`)
         }
     } else {
         alert("Campo não pode ser vazio!")
@@ -184,11 +184,11 @@ function existeId(id) {
     var retorno = false
     listaDeEventos = JSON.parse(localStorage.getItem("eventosKey"))
 
-    if (listaDeEventos == null || listaDeEventos == '') {
+    if (listaDeEventos == null || listaDeEventos == '' || listaDeEventos == undefined) {
         alert('Não há registros!')
     } else {
         for (i = 0; i < listaDeEventos.length; i++) {
-            if (listaDeEventos[i].id == id) {
+            if (listaDeEventos[i].idEvento == id) {
                 posicao = i
                 retorno = true
             }
