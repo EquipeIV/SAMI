@@ -16,13 +16,13 @@
         <button onclick="cadastrarNovoEvento()">REGISTRO DO CARTÂO</button><br><br>
         <!-- Simula usuário 'admin' (na TRT) que é o único que pode chamar o método 'deletarEventoPorId( )'-->
         <p><b>Simula usuário 'admin' chamando método 'deletarEventoPorId( )'</b></p>
-        <label>ID de registro para deletar</label><br><br>
-        <input type="text" id="idRegistroDeletar" required><br><br>
-        <button onclick="deletarEventoPorId()">DELETAR REGISTRO</button>
+        <label>ID de evento para deletar</label><br><br>
+        <input type="text" id="idEventoDeletar"><br><br>
+        <button onclick="deletarEventoPorId()">DELETAR EVENTO</button>
         <!-- Simula usuário 'admin' (na TRT) que é o único que pode chamar o método 'editarEventoPorId( )'-->
         <p><b>Simula usuário 'admin' chamando método 'editarEventoPorId( )'</b></p>
-        <label>ID de registro para editar</label><br><br>
-        <input type="text" id="idRegistroEditar"><br><br>
+        <label>ID de evento para editar</label><br><br>
+        <input type="text" id="idEventoEditar"><br><br>
         <label>QUAL CAMPO DESEJA EDITAR?</label><br>
         <select name="atributo" id="atributo">
             <option value="" disabled selected>Selecione...</option>
