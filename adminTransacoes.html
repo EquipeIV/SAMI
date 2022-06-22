@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRANSAÇÕES ADMIN</title>
+    <link rel="stylesheet" href="adminTransacoes.css">
+</head>
+
+<body onload="tabelarTodosEventos()">
+    <div class="container">
+        <div class="header">
+            <div class="Logo">
+                <a href="adminInicio.html"> <img
+                        src="https://media.discordapp.net/attachments/874750783491539005/986627412936786070/LOGO.png"
+                        class="imagemLogo"></a>
+            </div>
+
+            <div class="centraliza">
+                <div class="navbar">
+                    <a class="nav" href="inicioOUT.html"> Logout </a>
+                    <a class="nav" href="adminTransacoes.html"> Transações </a>
+                    <a class="nav" href="adminCadastros.html"> Cadastros </a>
+                    <a class="nav" href="adminSobre.html"> Sobre </a>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <div class="mid">
+            <div class="titulo">
+                <h1>TRANSAÇÕES REGISTRADAS</h1>
+            </div><br>
+            <div class="table" style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <th>ID EVENTO</th>
+                        <th>ID USUÁRIO</th>
+                        <th>NOME</th>
+                        <th>DATA</th>
+                        <th>HORÁRIO</th>
+                        <th>PLATAFORMA</th>
+                    </thead><br>
+                    <tbody id="eventosGeral">
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="edicao">
+                <h2>Buscar evento por ID</h2><br>
+                <input id="idEventoEditar" placeholder="id do evento" type="text"><br><br>
+                <button onclick="buscarEventoPorId()">BUSCAR</button><br>
+                <div id="eventoBuscadoEditar"></div>
+
+                <h2>Novo valor do campo</h2>
+
+
+                <select name="atributo" id="atributo">
+                    <option value="" disabled selected>Atributo...</option>
+                    <option value="nome">NOME</option>
+                    <option value="data">DATA</option>
+                    <option value="horario">HORÁRIO</option>
+                    <option value="plataforma">PLATAFORMA</option>
+                </select><br>
+
+                <input id="novoValorEditar" type="text" placeholder="Novo valor editado"><br>
+                <button onclick="editarEventoPorId()">EDITAR</button><br>
+
+                <button onclick="deletarEventoPorId()">DELETAR</button>
+            </div>
+
+        </div>
+
+        <div class="footer">
+            <label class="foot"> SENAI</label>
+        </div>
+    </div>
+    <script src="adminTransacoes.js"></script>
+</body>
+
+</html>

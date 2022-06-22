@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CADASTROS ADMIN</title>
+    <link rel="stylesheet" href="adminCadastros.css">
+</head>
+
+<body onload="tabelarTodosUsuarios()">
+    <div class="container">
+        <div class="header">
+            <div class="Logo">
+                <a href="adminInicio.html"> <img
+                        src="https://media.discordapp.net/attachments/874750783491539005/986627412936786070/LOGO.png"
+                        class="imagemLogo"></a>
+            </div>
+
+            <div class="centraliza">
+                <div class="navbar">
+                    <a class="nav" href="inicioOUT.html"> Logout </a>
+                    <a class="nav" href="adminTransacoes.html"> Transações </a>
+                    <a class="nav" href="adminCadastros.html"> Cadastros </a>
+                    <a class="nav" href="adminSobre.html"> Sobre </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mid">
+            <div class="titulo">
+                <h1>USUÁRIOS CADASTRADOS</h1>
+            </div><br>
+            <div class="meiozinho">    
+            <div class="table" style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <th>ID</th>
+                        <th>NOME</th>
+                        <th>CPF</th>
+                        <th>CIDADE</th>
+                        <th>BAIRRO</th>
+                        <th>RUA</th>
+                        <th>NÚMERO</th>
+                        <th>COMPLEMENTO</th>
+                        <th>SENHA</th>
+                    </thead><br>
+                    <tbody id="usuariosGeral">
+
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="info">  
+            <div id="usuarioBuscado"></div><br>
+            <div id="responsavelBuscado"></div><br>
+            </div>
+        </div>
+
+
+            <div class="editar">
+                <div class="edit1"> 
+                <h2>Buscar usuário por ID</h2>
+                <input type="text" id="idUsuarioBuscar" placeholder="Id do usuário"><br><br>
+                <button onclick="mostrarUsuarioBuscado()">BUSCAR USUÁRIO</button><br>
+
+                </div>  
+              
+
+
+                <div class="edit2"> 
+                    <h2>Novo Valor</h2>
+                <select name="atributosUsuario" id="atributosUsuario">
+                    <option value="" disabled selected>Atributo usuário...</option>
+                    <option value="nome">NOME</option>
+                    <option value="cpf">CPF</option>
+                    <option value="senha">SENHA</option>
+                    <option value="cidade">CIDADE</option>
+                    <option value="bairro">BAIRRO</option>
+                    <option value="rua">RUA</option>
+                    <option value="numero">NÚMERO</option>
+                    <option value="complemento">COMPLEMENTO</option>
+                </select><br>
+                <input type="text" id="novoValorEditarUsuario" placeholder="Novo valor"><br>
+                <button onclick="editarUsuario()">EDITAR USUÁRIO</button><br>
+                <button onclick="deletarUsuario()">DELETAR USUÁRIO</button><br>
+               
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <label class="foot"> SENAI</label>
+        </div>
+    </div>
+    <script src="adminCadastros.js"></script>
+</body>
+
+</html>

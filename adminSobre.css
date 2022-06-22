@@ -1,0 +1,126 @@
+html{
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+body{
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+/*contem as informações da pagina toda*/
+.container{
+    height: 100%;
+    width: 100%;
+    background-color: #ccf5f3   ;
+    margin: 0px;
+    padding: 0px;
+}
+/*edita o cabecalho*/
+.header{
+    height: 8%;
+    width: 100%;
+    background-color: #2b4d64;
+
+    display: flex;
+
+}
+.imagemLogo{
+    width: 70%;
+    height: 100%;
+}
+.Logo{
+    margin-left: 3%;
+    width: 5%;
+    height: 100%;
+}
+.centraliza{
+    width: 92%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    margin-right: 8%;
+    
+}
+/*configura a navbar*/
+.navbar{
+    width: 50%;
+    align-items: center;
+
+    display: flex;
+    justify-content: space-between;
+}
+/*edita os tamanhos dos botos*/
+.nav{
+    font-family: Verdana;
+    
+    font-size: large;
+    text-decoration: none;
+    color:#ccf5f3 ;
+    cursor: pointer;
+}
+/*edita os tamanhos dos botos*/
+.nav:hover{
+    transform: scale(0.97);
+    transition: 100ms;
+}
+/*onde se inclui os itens de cada pagina*/
+.mid{
+    height: 87%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+/*edita todos os h1 da pag*/
+h1{
+    color: #2b4d64;
+}
+label{
+    color: #2b4d64;
+}
+/*edita o texto "quem somos" da pag*/
+.textoSobre{
+    height: 30%;
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    align-items: center;
+    text-align: center;
+}
+/*edita o texto "propósito" e "produto" da pag*/
+.sobreDois{
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+/*edita os títulos: "Propósito" e "Produto"*/
+.titulo{
+    height: 15%;
+    width: 42%;
+    display: flex;
+    justify-content: space-between;
+    float: inline-start;
+}
+
+.espacamento{
+    width: 30%;
+    height: 15%;
+}
+
+/*edita o rodape*/
+.footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2b4d64;
+    height: 5%; 
+}
+/*edita o texto do rodape*/
+.foot{
+    font-size: x-large;
+    color: #ccf5f3;
+}
