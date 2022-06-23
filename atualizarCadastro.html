@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,32 +8,33 @@
     <title>Atualizar Cadastro</title>
     <link rel="stylesheet" href="atualizarCadastro.css">
 </head>
-<body onload="acharLogadoNaListaDeUsuarios()">
+
+<body onload="encontrarLogadoNaListaDeUsuarios(); temResponsavel();">
     <div class="container">
         <div class="header">
             <div class="Logo">
-               <a href="inicioIN.html"> <img src="https://media.discordapp.net/attachments/874750783491539005/986627412936786070/LOGO.png" class="imagemLogo"></a>
+                <a href="inicioIN.html"> <img
+                        src="https://media.discordapp.net/attachments/874750783491539005/986627412936786070/LOGO.png"
+                        class="imagemLogo"></a>
             </div>
 
             <div class="centraliza">
-            <div class="navbar">
-                
-                <a class="nav" href="inicioOUT.html"> Logout </a>
-                <a class="nav"  href="relatorioTransacao.html"> Relatórios </a>
-                <a class="nav"  href="AtualizarCadastro.html">Atualizar cadastro</a>
-                <a class="nav"  href="sobreIN.html"> Sobre </a>
-            </div>
-            </div>
+                <div class="navbar">
 
-
+                    <a class="nav" href="inicioOUT.html"> Logout </a>
+                    <a class="nav" href="relatorioTransacao.html"> Relatórios </a>
+                    <a class="nav" href="AtualizarCadastro.html">Atualizar cadastro</a>
+                    <a class="nav" href="sobreIN.html"> Sobre </a>
+                </div>
+            </div>
         </div>
 
 
         <div class="mid">
             <div class="titulo">
-            <h1>Atualizar Cadastro</h1>
-             </div>
-          
+                <h1>Atualizar Cadastro</h1>
+            </div>
+
 
             <div class="edicao">
                 <h2>Selecione o campo que será alterado</h2>
@@ -48,20 +50,24 @@
                     <option value="complemento">COMPLEMENTO</option>
                     <option value="senha">SENHA</option>
                 </select> <br>
-
                 <h2> Novo valor </h2>
 
                 <input id="novoValorInput" placeholder="Novo valor" type="text"> <br>
 
-                <button onclick="editarUsuario()">Confirmar</button>
+                <button onclick="editarUsuario()">CONFIRMAR</button><br>
+                <h2>Excluir cadastro</h2>
+                <button onclick="deletarUsuarioLogado()">DELETAR USUÁRIO</button><br>
+                <h2>Excluir responsável</h2>
+                <button onclick="deletarResponsavel()">DELETAR RESPONSÁVEL</button>
             </div>
         </div>
- 
 
-        <div class="footer"> 
+
+        <div class="footer">
             <label class="foot"> SENAI</label>
         </div>
     </div>
     <script src="atualizarCadastro.js"></script>
 </body>
+
 </html>
