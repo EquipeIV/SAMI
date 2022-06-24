@@ -30,10 +30,16 @@ body{
 
 }
 .imagemLogo{
-    width: 70%;
-    height: 100%;
+    width: 50%;
+    height: 60%;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    
 }
 .Logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-left: 3%;
     width: 5%;
     height: 100%;
@@ -83,7 +89,7 @@ body{
     background-color: #2b4d64;
     height: 5%; 
     width: 100%;
-
+    
     position: fixed;
     bottom:0;
 
@@ -100,7 +106,7 @@ body{
     height: 10%;
 }
 .meiozinho{
-    height: 100%;
+    height: 70%;
     width: 100%;
     justify-content: center;
     flex-direction: column ;
@@ -108,17 +114,19 @@ body{
 
 }
 .info{
-    height: 40%;
+    height: auto;
     width: 100%;
+    overflow-x: auto;
     display: flex;
     justify-content: center;
     flex-direction: column ;
     align-items: center;
 }
 .table{
-    height: 60%;
+    height: 40%;
     width: 100%;
 
+    overflow-x: auto;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -172,7 +180,7 @@ table, tr, th, td{
 
 .editar{
     width: 100%;
-    height: 50%;
+    height: 30%;
     display: flex;
     flex-direction: flex;
 }

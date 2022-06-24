@@ -29,10 +29,16 @@ body{
 
 }
 .imagemLogo{
-    width: 70%;
-    height: 100%;
+    width: 50%;
+    height: 60%;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    
 }
 .Logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-left: 3%;
     width: 5%;
     height: 100%;
@@ -134,18 +140,20 @@ h1{
     color: #2b4d64;
 }
 .imageTela{
-   
-    box-shadow: 1px 3px 12px rgba(32, 32, 32, .3);
+    width: 50%;
+    height: 60%;
+    margin-top: 10px;
+    margin-bottom: 5px;
+
 }
 .image{
     width: 50%;
-    height: 80%;
     display: flex;
     justify-content: flex-end;
     margin-right: 5%;
 }
 .linkbar{
-    height: 20%;
+    height: 40%;
     width: 100%;
     margin-top: 5%;
     display: flex;
@@ -154,9 +162,18 @@ h1{
     align-items: center;
 }
 .botoes{
-    width: 30%;
+    width: 20%;
+    height: 90%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+}
+.legenda{
+    width: 100%;
+    height: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 a{
     font-size: x-large;
