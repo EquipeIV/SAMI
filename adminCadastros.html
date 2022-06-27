@@ -54,41 +54,45 @@
 
             </div>
             <div class="info">  
-            <div id="usuarioBuscado"></div><br>
-            <div id="responsavelBuscado"></div><br>
+                <div class="edit1"> 
+                    <h2>Buscar usuário por ID</h2>
+                    <input type="text" id="idUsuarioBuscar" placeholder="Id do usuário"><br><br>
+                    <button onclick="mostrarUsuarioBuscado()">BUSCAR USUÁRIO</button><br>
+    
+                    </div>  
+                    <div class="informacao"> 
+            <div id="usuarioBuscado"></div>
+            <div id="responsavelBuscado"></div>
+                    </div>
+
+                          
+
+            <div class="edit2"> 
+                <h2>Novo Valor</h2>
+            <select name="atributosUsuario" id="atributosUsuario">
+                <option value="" disabled selected>Atributo usuário...</option>
+                <option value="nome">NOME</option>
+                <option value="cpf">CPF</option>
+                <option value="senha">SENHA</option>
+                <option value="cidade">CIDADE</option>
+                <option value="bairro">BAIRRO</option>
+                <option value="rua">RUA</option>
+                <option value="numero">NÚMERO</option>
+                <option value="complemento">COMPLEMENTO</option>
+            </select><br>
+            <input type="text" id="novoValorInput" placeholder="Novo valor"><br>
+            <button onclick="editarUsuario()">EDITAR USUÁRIO</button><br>
+            <button onclick="deletarUsuarioPorId()">DELETAR USUÁRIO</button><br>
+           
             </div>
+
+
+            </div>
+      
         </div>
 
 
-            <div class="editar">
-                <div class="edit1"> 
-                <h2>Buscar usuário por ID</h2>
-                <input type="text" id="idUsuarioBuscar" placeholder="Id do usuário"><br><br>
-                <button onclick="mostrarUsuarioBuscado()">BUSCAR USUÁRIO</button><br>
-
-                </div>  
-              
-
-
-                <div class="edit2"> 
-                    <h2>Novo Valor</h2>
-                <select name="atributosUsuario" id="atributosUsuario">
-                    <option value="" disabled selected>Atributo usuário...</option>
-                    <option value="nome">NOME</option>
-                    <option value="cpf">CPF</option>
-                    <option value="senha">SENHA</option>
-                    <option value="cidade">CIDADE</option>
-                    <option value="bairro">BAIRRO</option>
-                    <option value="rua">RUA</option>
-                    <option value="numero">NÚMERO</option>
-                    <option value="complemento">COMPLEMENTO</option>
-                </select><br>
-                <input type="text" id="novoValorInput" placeholder="Novo valor"><br>
-                <button onclick="editarUsuario()">EDITAR USUÁRIO</button><br>
-                <button onclick="deletarUsuarioPorId()">DELETAR USUÁRIO</button><br>
-               
-                </div>
-            </div>
+         
         </div>
 
         <div class="footer">
