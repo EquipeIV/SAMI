@@ -69,9 +69,10 @@ body{
 }
 /*onde se inclui os itens de cada pagina*/
 .mid{
-    height: 87%;
+    width: 100%;
+    height: 73%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 }
 /*edita o rodape*/
 .footer{
@@ -94,18 +95,19 @@ body{
     justify-content: center;
     flex-direction: column;
 }
-.innerHtml{
-    width: 100%;
-    height: 40%;
 
-    display: flex;
-    
-    justify-content: center;
-
-}
 .edicao{
-    width: 100%;
-    height: 76%;
+    margin-left: 33%;
+    width: 50%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    
+}
+.inRespo{
+    width: 50%;
+    height: 90%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -115,12 +117,17 @@ h1,h2{
     color: #2b4d64;
 }
 button{
-    width: 10%;
-    height: 13%;
+    width: 20%;
+    height: 15%;
     cursor: pointer;
 }
 select,input{
-    width: 15%;
+    width: 30%;
     height: 10%;
     font-size: small;
+    text-align: center;
+}
+.inputsEditar{
+    width: 40%;
+    height: 15%;
 }

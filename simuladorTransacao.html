@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>REGISTRO EVENTO</title>
+    <link rel="stylesheet" href="modal.css">
 </head>
 
 <body>
@@ -15,6 +16,38 @@
         <button onclick="cadastrarNovoEvento()">REGISTRO DO CARTÂO</button><br><br>
     </center>
     <script src="CRUDService.js"></script>
+
+
+
+    <div class="modal" id="modal">
+        <div class="content">
+            <span class="close" onclick="fecharModal()">&times;</span>
+            <div class="tablehead" style="display: block;">
+                <div class="titulo">  
+                <h3>Usuário Registrou</h3>
+                </div>
+                <table id="table">    
+                    <thead>
+                        <th id="id">ID</th>               
+                        <th id="data">DATA</th>
+                        <th id="horario">HORARIO</th>
+                        <th id="plaforma">PLATAFORMA</th>
+                    </thead>
+                    <div id="tabelainfo">
+
+                    </div>
+                    <tbody id="tabelainfo">
+                        <tr align="center">
+                            <td class="idUsuario"></td class="idUsuario">
+                            <td class="idUsuario"></td class="idUsuario">
+                            <td class="idUsuario"></td class="idUsuario">
+                            <td class="idUsuario"></td class="idUsuario">
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

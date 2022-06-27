@@ -61,6 +61,18 @@ function cadastrarNovoEvento() {
     localStorage.setItem("eventosKey", JSON.stringify(listaDeEventos))
     //gerarModal(/*PARÂMETROS DO OBJETO EVENTO*/)
 
+    ShowModal()
+
+}
+function ShowModal(){
+    let Modal = document.getElementById("modal")
+    Modal.classList.add("modal-show")
+
+    setTimeout(HideModal, 3000)
+}
+function HideModal(){
+    let Modal = document.getElementById("modal")
+    Modal.classList.remove("modal-show")
 }
 
 function tabelarEventosDoUsuarioLogado() {

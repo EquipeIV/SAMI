@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Início</title>
     <link rel="stylesheet" href="inicioIN.css">
+    <link rel="stylesheet" href="modal.css">
 </head>
 
 <body>
@@ -32,36 +33,65 @@
         <div class="mid">
             <div class="titulo">
                 <h1>SAMI</h1>
-            </div>
-            <div class="conteudo">
-                <div class="textos">
-                    <div class="subtitulo">
-                        <h2>O que fazemos?</h2>
+                </div>
+                <div class="conteudo">
+                    <div class="textos"> 
+                        <div class="subtitulo">
+                            <h2>O que fazemos?</h2>
+                        </div>  
+                        <div class="textoPrincipal">
+                            <p>O SAMI (Sistema de Acessibilidade Mobilidade e Integração) é um meio de auxiliar pessoas com necessidades especiais a ultilizarem e terem segurança nos meios de transporte público</p>
+                        </div>
                     </div>
-                    <div class="textoPrincipal">
-                        <p>O SAMI (Sistema de Acessibilidade Mobilidade e Integração) é um meio de auxiliar pessoas com
-                            necessidades especiais à ultilizarem e terem segurança nos meios de transporte público</p>
+                    <div class="image">
+                        <img class="imageTela" src="https://www.camara.leg.br/midias/image/2019/11/acessibilidade-768x512.jpg" >
                     </div>
                 </div>
-                <div class="image">
-                    <img class="imageTela"
-                        src="https://media.discordapp.net/attachments/874750783491539005/986633407654141992/Logo_Sami_com_fundo_.png">
+                <div class="linkbar">
+                    <div class="legenda">
+                        <p>Nossos links</p>
+                    </div>
+                    <div class="botoes">
+                        <a href="https://sc.senai.br" target="_blank" rel="noopener noreferrer"><img src="images/senai.png" style="width: 50px;height: 50px;" alt=""></a>
+                        <a href="https://acic.org.br" target="_blank" rel="noopener noreferrer"><img src="images/ACIC.png" style="width: 30px; height: 30px;" alt=""></a>
+                        <a href="" target="_blank" rel="noopener noreferrer"><img src="https://cdn.icon-icons.com/icons2/2368/PNG/512/github_logo_icon_143772.png" style="width: 30px; height: 30px;" alt=""></a>
+                    </div>
                 </div>
             </div>
-            <div class="linkbar">
-                <div class="legenda">
-                    <p>Nossos links</p>
-                </div>
-                <div class="botoes">
-                    <a href="https://sc.senai.br" target="_blank" rel="noopener noreferrer">Senai</a>
-                    <a href="https://acic.org.br">ACIC</a>
-                    <a href="">GITHUB</a>
-                </div>
-            </div>
-        </div>
+
+
 
         <div class="footer">
             <label class="foot"> SENAI</label>
+        </div>
+    </div>
+    <div class="modal" id="modal">
+        <div class="content">
+            <span class="close" onclick="fecharModal()">&times;</span>
+            <div class="tablehead" style="display: block;">
+                <div class="titulo">  
+                <h3>Usuário Registrou</h3>
+                </div>
+                <table id="table">    
+                    <thead>
+                        <th id="id">ID</th>               
+                        <th id="data">DATA</th>
+                        <th id="horario">HORARIO</th>
+                        <th id="plaforma">PLATAFORMA</th>
+                    </thead>
+                    <div id="tabelainfo">
+
+                    </div>
+                    <tbody id="tabelainfo">
+                        <tr align="center">
+                            <td class="idUsuario"></td class="idUsuario">
+                            <td class="idUsuario"></td class="idUsuario">
+                            <td class="idUsuario"></td class="idUsuario">
+                            <td class="idUsuario"></td class="idUsuario">
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <script src="CRUDService.js"></script>

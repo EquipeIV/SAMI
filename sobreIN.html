@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sobre</title>
     <link rel="stylesheet" href="sobreIN.css">
+    <link rel="stylesheet" href="modal.css">
 </head>
 
 <body>
@@ -76,6 +77,37 @@
             <label class="foot"> SENAI</label>
         </div>
     </div>
+
+    <div class="modal" id="modal">
+        <div class="content">
+            <span class="close" onclick="fecharModal()">&times;</span>
+            <div class="tablehead" style="display: block;">
+                <div class="titulo">  
+                <h3>Usuário Registrou</h3>
+                </div>
+                <table id="table">    
+                    <thead>
+                        <th id="id">ID</th>               
+                        <th id="data">DATA</th>
+                        <th id="horario">HORARIO</th>
+                        <th id="plaforma">PLATAFORMA</th>
+                    </thead>
+                    <div id="tabelainfo">
+
+                    </div>
+                    <tbody id="tabelainfo">
+                        <tr align="center">
+                            <td class="idUsuario"></td class="idUsuario">
+                            <td class="idUsuario"></td class="idUsuario">
+                            <td class="idUsuario"></td class="idUsuario">
+                            <td class="idUsuario"></td class="idUsuario">
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
     <script src="CRUDService.js"></script>
 </body>
 
