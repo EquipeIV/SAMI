@@ -120,12 +120,15 @@ button{
     width: 35%;
     height: 5%;
     cursor: pointer;
+    margin-bottom: 20px;
+    
 }
 select,input{
     width: 35%;
     height: 5%;
     font-size: small;
     text-align: center;
+    
 }
 .inputsEditar{
     width: 40%;
