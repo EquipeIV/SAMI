@@ -1,3 +1,4 @@
+/* ACOPLADO!
 var listaDeUsuarios = []
 var listaDeResponsaveis = []
 var usuarioLogado
@@ -207,3 +208,4 @@ function ehInputVazio(input) {
     }
     return retorno
 }
+*/

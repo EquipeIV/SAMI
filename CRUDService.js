@@ -1,5 +1,6 @@
 var listaDeEventos = []
 var listaDeUsuarios = []
+var listaDeResponsaveis = []
 var usuarioLogado
 
 var novoEvento
@@ -7,13 +8,22 @@ var idEvento = 1
 var nomeUsuario, data, horario, plataforma
 var plataformaNumerada
 
-var usuarioSimulado
+var usuarioADMIN = 'admin'
+var senhaADMIN = 'admin'
+var usuario = document.getElementById("usuarioInput")
+var senha = document.getElementById("senhaInput")
+var usuarioSimulado // VAI DEIXAR DE EXISTIR
 var usuarioRegistrado
 var posicaoUsuarioDaLista
+
 var eventoAtualLogado
 var eventoAtualGeral
+var eventoBuscado = ''
+
 var posicao = -1
-var idEventoDeletar = document.getElementById("idEventoDeletar")
+
+var stringPrint
+
 var idEventoEditar = document.getElementById("idEventoEditar")
 var novoValorEditar = document.getElementById("novoValorEditar")
 
@@ -49,7 +59,7 @@ function cadastrarNovoEvento() {
 
     listaDeEventos.push(novoEvento)
     localStorage.setItem("eventosKey", JSON.stringify(listaDeEventos))
-    
+    //gerarModal(/*PARÂMETROS DO OBJETO EVENTO*/)
 
 }
 
@@ -119,19 +129,36 @@ function tabelarTodosEventos() {
     }
 }
 
+function buscarEventoPorId() {
+    listaDeEventos = JSON.parse(localStorage.getItem("eventosKey"))
+    for (i = 0; i < listaDeEventos.length; i++) {
+        if (listaDeEventos[i].idEvento == idEventoEditar.value) {
+            this.eventoBuscado = listaDeEventos[i]
+            posicao = i
+            mostrarEventoPorId()
+        }
+    }
+}
+
+function mostrarEventoPorId() {
+    stringPrint = `${this.eventoBuscado.idEvento} | ${this.eventoBuscado.idUsuario} | ${this.eventoBuscado.nomeUsuario} | ${this.eventoBuscado.data} | ${this.eventoBuscado.horario} | ${this.eventoBuscado.plataforma}<br>`
+    document.querySelector('#eventoBuscadoEditar').innerHTML = stringPrint
+}
+
 function deletarEventoPorId() {
     listaDeEventos = JSON.parse(localStorage.getItem("eventosKey"))
-    if (!ehInputVazio(idEventoDeletar.value)) {
-        if (existeId(idEventoDeletar.value)) {
+    if (!ehInputVazio(idEventoEditar.value)) {
+        if (existeId(idEventoEditar.value)) {
             listaDeEventos.splice(posicao, 1)
             localStorage.setItem("eventosKey", JSON.stringify(listaDeEventos))
             alert('Evento deletado!')
         } else {
-            alert(`O seguinte ID não existe: [${idEventoDeletar.value}]`)
+            alert(`O seguinte ID não existe: [${idEventoEditar.value}]`)
         }
     } else {
         alert("Campo não pode ser vazio!")
     }
+    location.reload()
 }
 
 function editarEventoPorId() {
@@ -161,10 +188,66 @@ function editarEventoPorId() {
     } else {
         alert("Campo não pode ser vazio!")
     }
+    location.reload()
 }
 
 function limparObjetoLogado() {
     localStorage.setItem('usuarioLogado', '')
+}
+
+// ----- LOGIN -----
+
+function logar() {
+
+    if (usuario.value === usuarioADMIN && senha.value === senhaADMIN) {
+        alert('Olá, ADMIN!')
+        usuarioLogado = usuarioADMIN
+        localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado))
+        window.location.href = "adminInicio.html"
+    } else {
+        listaDeUsuarios = JSON.parse(localStorage.getItem("usuariosKey"))
+        listaDeResponsaveis = JSON.parse(localStorage.getItem("responsaveisKey"))
+
+        // Verifica se há registros de usuários
+        if (ehListaVazia(listaDeUsuarios)) {
+            alert('Não há usuários cadastrados!')
+            return
+        }
+        // Valida preenchimento obrigatório dos campos
+        if (ehInputVazio(usuario.value) || ehInputVazio(senha.value)) {
+            alert('Não pode haver campos vazios')
+            return
+        }
+
+        if (ehCpfValido(listaDeUsuarios, usuario.value)) { // Valida CPF do titular
+            if (ehSenhaValida(listaDeUsuarios, senha.value, posicao)) {
+                this.usuarioLogado = {
+                    id: listaDeUsuarios[posicao].id,
+                    nome: listaDeUsuarios[posicao].nome
+                }
+                localStorage.setItem('usuarioLogado', JSON.stringify(this.usuarioLogado))
+                alert(`Bem-vindo(a), ${this.usuarioLogado.nome}!`)
+                window.location.href = "inicioIN.html"
+            } else {
+                alert('Senha inválida!')
+            }
+        } else if (ehCpfValido(listaDeResponsaveis, usuario.value)) { // Senão, valida CPF do responsável
+            if (ehSenhaValida(listaDeResponsaveis, senha.value, posicao)) {
+                this.usuarioLogado = {
+                    id: listaDeResponsaveis[posicao].idResp,
+                    nome: listaDeResponsaveis[posicao].nomeResp
+                }
+                localStorage.setItem('usuarioLogado', JSON.stringify(this.usuarioLogado))
+                alert(`Bem-vindo(a), ${this.usuarioLogado.nome}!`)
+                window.location.href = "inicioIN.html"
+            } else {
+                alert('Senha inválida!')
+            }
+        } else {
+            alert('Usuário inválido!')
+            return
+        }
+    }
 }
 
 // ----- VALIDAÇÕES -----
@@ -179,6 +262,24 @@ function validaListaEventosDoLocalStorage() {
         this.idEvento = (listaDeEventos[ultimoIndice].idEvento) + 1
 
     }
+}
+
+function ehCpfValido(lista, cpf) {
+    var retorno = false
+    for (i = 0; i < lista.length; i++) {
+        if (cpf == lista[i].cpf || cpf == lista[i].cpfResp) {
+            posicao = i
+            retorno = true
+        }
+    }
+    return retorno
+}
+
+function ehSenhaValida(lista, senha, posicao) {
+    if (senha == lista[posicao].senha || senha == lista[posicao].senhaResp) {
+        return true
+    }
+    return false
 }
 
 function existeId(id) {
@@ -206,6 +307,13 @@ function ehInputVazio(input) {
     }
 }
 
+function ehListaVazia(lista) {
+    if (lista == '' || lista == null || lista == undefined) {
+        return true
+    }
+    return false
+}
+
 // ----- BUILDERS -----
 
 function instanciaDataAtual() {
@@ -224,7 +332,7 @@ function instanciaHorarioAtual() {
 }
 
 // ----- SIMULADORES -----
-
+// DEIXARÃO DE EXISTIR
 function gerarInteiroAleatorio(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }

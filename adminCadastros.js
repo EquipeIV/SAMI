@@ -1,7 +1,4 @@
-// PERMITE DELEÇÃO DE QUALQUER USUÁRIO (SE POSSUIR RESPONSÁVEL, É DELETADO JUNTO) E RESPONSÁVEL
-// PERMITE EDIÇÕES DE TODOS OS ATRIBUTOS DE USUÁRIOS E DE RESPONSÁVEIS MAS NÃO FAZ VALIDAÇÃO DE NOVOS VALORES. 
-// EXEMPLO: NÃO VERIFICA SE NOVO CPF JÁ ESTÁ REGISTRADO
-
+/* ACOPLADO!
 var listaDeUsuarios = JSON.parse(localStorage.getItem("usuariosKey"))
 var listaDeResponsaveis = JSON.parse(localStorage.getItem("responsaveisKey"))
 
@@ -240,3 +237,4 @@ function existeResponsavelComID(idCheck) {
     }
     return retorno
 }
+*/

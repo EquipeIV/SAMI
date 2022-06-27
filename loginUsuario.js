@@ -1,3 +1,4 @@
+/* ACOPLADO (CRUDService)
 var listaDeUsuarios = []
 var listaDeResponsaveis = []
 var usuario = document.getElementById("usuarioInput")
@@ -95,3 +96,4 @@ function ehListaVazia(lista) {
     }
     return false
 }
+*/

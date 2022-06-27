@@ -1,3 +1,4 @@
+/* ACOPLADO
 var listaDeUsuarios = JSON.parse(localStorage.getItem("usuariosKey"))
 var listaDeResponsaveis = JSON.parse(localStorage.getItem("responsaveisKey"))
 var listaDeEventos = JSON.parse(localStorage.getItem("eventosKey"))
@@ -8,7 +9,6 @@ var novoValor = document.getElementById("novoValor")
 var eventoBuscado = ''
 var posicao = -1
 
-var cabecalho
 var stringPrint
 
 var selectAtributosEvento = document.querySelector('#atributo')
@@ -42,24 +42,6 @@ function tabelarTodosEventos() {
         }
     }
 }
-
-/*
-function listarTodosEventosSalvos() {
-    document.querySelector('#eventosGeral').innerHTML = ''
-    if (listaDeEventos == null || listaDeEventos == '' || listaDeEventos == undefined) {
-        alert('Não há registros!')
-    } else {
-        cabecalho = '<br> <<< REGISTROS >>> <br> <br> (ID EVENTO / ID USUÁRIO / NOME / DATA / HORÁRIO / PLTF ) <br>'
-        stringPrint = ''
-        for (i = 0; i < listaDeEventos.length; i++) {
-            objetoAtual = listaDeEventos[i]
-            stringPrint += `${objetoAtual.idEvento} | ${objetoAtual.idUsuario} | ${objetoAtual.nomeUsuario} | ${objetoAtual.data} | ${objetoAtual.horario} | ${objetoAtual.plataforma}<br>`
-        }
-
-        document.querySelector('#eventosGeral').innerHTML = cabecalho + stringPrint
-    }
-}
-*/
 
 function buscarEventoPorId() {
     for (i = 0; i < listaDeEventos.length; i++) {
@@ -109,6 +91,7 @@ function deletarEventoPorId() {
     location.reload()
 }
 
+
 // ----- VALIDAÇÕES -----
 
 function ehInputVazio(input) {
@@ -134,3 +117,4 @@ function existeId(id) {
     }
     return retorno
 }
+*/

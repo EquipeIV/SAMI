@@ -23,16 +23,10 @@ body {
 
 }
 .imagemLogo{
-    width: 50%;
-    height: 60%;
-    margin-top: 10px;
-    margin-bottom: 5px;
-    
+    width: 70%;
+    height: 100%;
 }
 .Logo{
-    display: flex;
-    justify-content: center;
-    align-items: center;
     margin-left: 3%;
     width: 5%;
     height: 100%;
