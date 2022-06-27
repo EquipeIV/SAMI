@@ -29,20 +29,42 @@ body{
 
 }
 .imagemLogo{
-   
-    width: 50%;
-    height: 60%;
-    margin-top: 10px;
-    margin-bottom: 5px;
-
+    width: 70%;
+    height: 100%;
 }
 .Logo{
-    display: flex;
-    justify-content: center;
-    align-items: center;
     margin-left: 3%;
     width: 5%;
     height: 100%;
+}
+.centraliza{
+    width: 92%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    margin-right: 8%;
+}
+/*configura a navbar*/
+.navbar{
+    width: 50%;
+    align-items: center;
+
+    display: flex;
+    justify-content: space-between;
+}
+/*edita os tamanhos dos botos*/
+.nav{
+    font-family: Verdana;
+    
+    font-size: large;
+    text-decoration: none;
+    color:#ccf5f3 ;
+    cursor: pointer;
+}
+/*edita os tamanhos dos botos*/
+.nav:hover{
+    transform: scale(0.97);
+    transition: 100ms;
 }
 .centraliza{
     width: 92%;
