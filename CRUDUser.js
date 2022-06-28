@@ -241,14 +241,19 @@ function buscarUsuarioPorId() {
 
 function deletarUsuarioPorId() {
     listaDeUsuarios = JSON.parse(localStorage.getItem("usuariosKey"))
+
     if (!ehInputVazio(idParaDeletar.value)) {
         if (existeId(idParaDeletar.value)) {
             listaDeUsuarios.splice(posicao, 1)
             localStorage.setItem("usuariosKey", JSON.stringify(listaDeUsuarios))
+            if (existeResponsavel(idParaDeletar.value)) {
+                listaDeResponsaveis.splice(this.posicaoResp, 1)
+                localStorage.setItem("responsaveisKey", JSON.stringify(listaDeResponsaveis))
+            }
             alert('Usuário deletado!')
             location.reload()
         } else {
-            alert(`O seguinte ID não existe: [${idParaDeletar.value}]`)
+            alert(`ID inexistente: [${idParaDeletar.value}]`)
         }
     } else {
         alert("Campo não pode ser vazio!")
@@ -270,6 +275,10 @@ function editarUsuario() {
                     break
 
                 case 'cpf':
+                    if (existeCpf(novoValorInput.value)) {
+                        alert(`Este CPF já é cadastrado: [${novoValorInput.value}]`)
+                        return
+                    }
                     listaDeUsuarios[posicao].cpf = novoValorInput.value
                     break
 
@@ -326,7 +335,7 @@ function editarUsuario() {
                     listaDeResponsaveis[posicaoResp].enderecoResp.complementoResp = novoValorInput.value
                     break
 
-                case 'senhaResp':
+                case 'senhaResponsavel':
                     listaDeResponsaveis[posicaoResp].senhaResp = novoValorInput.value
             }
 
@@ -345,26 +354,6 @@ function editarUsuario() {
         return
     }
 }
-
-function adicionarResponsavel() {
-
-    validaListaResponsaveisDoLocalStorage()
-
-    cpfRespInput = document.getElementById("cpfResp")
-    if (existeCpf(cpfRespInput.value)) {
-        alert(`CPF [${cpfRespInput.value}] já cadastrado!`)
-        return
-    }
-
-    novoEnderecoResponsavel = criarObjetoEnderecoResponsavel()
-    novoResponsavel = criarObjetoResponsavel()
-    novoResponsavel.idResp = usuarioLogado.id
-    listaDeResponsaveis.push(novoResponsavel)
-    localStorage.setItem("responsaveisKey", JSON.stringify(listaDeResponsaveis))
-    alert("Responsável Adicionado")
-    location.reload()
-}
-
 
 function encontrarLogadoNaListaDeUsuarios() {
     listaDeUsuarios = JSON.parse(localStorage.getItem("usuariosKey"))
@@ -408,6 +397,25 @@ function deletarUsuarioLogado() {
     window.location.href = 'inicioOUT.html'
 }
 
+function adicionarResponsavel() {
+
+    validaListaResponsaveisDoLocalStorage()
+
+    cpfRespInput = document.getElementById("cpfResp")
+    if (existeCpf(cpfRespInput.value)) {
+        alert(`CPF [${cpfRespInput.value}] já cadastrado!`)
+        return
+    }
+
+    novoEnderecoResponsavel = criarObjetoEnderecoResponsavel()
+    novoResponsavel = criarObjetoResponsavel()
+    novoResponsavel.idResp = usuarioLogado.id
+    listaDeResponsaveis.push(novoResponsavel)
+    localStorage.setItem("responsaveisKey", JSON.stringify(listaDeResponsaveis))
+    alert("Responsável Adicionado")
+    location.reload()
+}
+
 function deletarResponsavel() {
     listaDeResponsaveis = JSON.parse(localStorage.getItem("responsaveisKey"))
     usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"))
@@ -429,6 +437,11 @@ function mostrarUsuarioBuscado() {
     document.querySelector('#usuarioBuscado').innerHTML = ''
     var stringUsuario = ''
     var stringResponsavel = ''
+
+    if (ehInputVazio(idUsuarioBuscar.value)) {
+        alert('Campo [ID do usuário] não pode ser vazio!')
+        return
+    }
 
     if (existeId(idUsuarioBuscar.value)) {
         this.usuarioBuscado = listaDeUsuarios[posicao]
@@ -586,13 +599,15 @@ function selectResponsavel() {
     <option value="numero">NÚMERO</option>\n
     <option value="complemento">COMPLEMENTO</option>\n
     <option value="senha">SENHA</option>\n
-   <option value="nomeResponsavel">NOME DO RESPONSAVEL</option>\n
-   <option value="cpfResponsavel">CPF DO RESPONSAVEL</option>\n
-   <option value="cidadeResponsavel">CIDADE DO RESPONSAVEL</option>\n
-   <option value="bairroResponsavel">BAIRRO DO RESPONSAVEL</option>\n
-   <option value="ruaResponsavel">RUA DO RESPONSAVEL</option>\n
-   <option value="numeroResponsavel">NUMERO DO RESPONSAVEL</option>\n
-   <option value="complementoResponsavel">COMPLEMENTO DO RESPONSAVEL</option> </select> <br>`
+   <option value="nomeResponsavel">NOME (RESPONSÁVEL)</option>\n
+   <option value="cpfResponsavel">CPF (RESPONSÁVEL)</option>\n
+   <option value="cidadeResponsavel">CIDADE (RESPONSÁVEL)</option>\n
+   <option value="bairroResponsavel">BAIRRO (RESPONSÁVEL)</option>\n
+   <option value="ruaResponsavel">RUA (RESPONSÁVEL)</option>\n
+   <option value="numeroResponsavel">NUMERO (RESPONSÁVEL)</option>\n
+   <option value="complementoResponsavel">COMPLEMENTO (RESPONSÁVEL)</option>\n
+   <option value="senhaResponsavel">SENHA (RESPONSÁVEL)</option> 
+   </select> <br>`
 }
 
 function inputsAdicionarResponsavel() {
@@ -638,6 +653,18 @@ function existeId(idCheck) {
     for (i = 0; i < listaDeUsuarios.length; i++) {
         if (listaDeUsuarios[i].id == idCheck) {
             posicao = i
+            retorno = true
+        }
+    }
+    return retorno
+}
+
+function existeResponsavel(idCheck) {
+    listaDeResponsaveis = JSON.parse(localStorage.getItem("responsaveisKey"))
+    var retorno = false
+    for (i = 0; i < listaDeResponsaveis.length; i++) {
+        if (idCheck == listaDeResponsaveis[i].idResp) {
+            this.posicaoResp = i
             retorno = true
         }
     }

@@ -41,12 +41,67 @@ function Evento(idEvento, idUsuario, nomeUsuario, data, horario, plataforma) {
     this.plataforma = plataforma;
 }
 
+// ----- LOGIN -----
+
+function logar() {
+
+    if (usuario.value === usuarioADMIN && senha.value === senhaADMIN) {
+        alert('Olá, ADMIN!')
+        usuarioLogado = usuarioADMIN
+        localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado))
+        window.location.href = "adminInicio.html"
+    } else {
+        listaDeUsuarios = JSON.parse(localStorage.getItem("usuariosKey"))
+        listaDeResponsaveis = JSON.parse(localStorage.getItem("responsaveisKey"))
+
+        // Verifica se há registros de usuários
+        if (ehListaVazia(listaDeUsuarios)) {
+            alert('Não há usuários cadastrados!')
+            return
+        }
+        // Valida preenchimento obrigatório dos campos
+        if (ehInputVazio(usuario.value) || ehInputVazio(senha.value)) {
+            alert('Não pode haver campos vazios')
+            return
+        }
+
+        if (ehCpfValido(listaDeUsuarios, usuario.value)) { // Valida CPF do titular
+            if (ehSenhaValida(listaDeUsuarios, senha.value, posicao)) {
+                this.usuarioLogado = {
+                    id: listaDeUsuarios[posicao].id,
+                    nome: listaDeUsuarios[posicao].nome
+                }
+                localStorage.setItem('usuarioLogado', JSON.stringify(this.usuarioLogado))
+                alert(`Bem-vindo(a), ${this.usuarioLogado.nome}!`)
+                window.location.href = "inicioIN.html"
+            } else {
+                alert('Senha inválida!')
+            }
+        } else if (ehCpfValido(listaDeResponsaveis, usuario.value)) { // Senão, valida CPF do responsável
+            if (ehSenhaValida(listaDeResponsaveis, senha.value, posicao)) {
+                this.usuarioLogado = {
+                    id: listaDeResponsaveis[posicao].idResp,
+                    nome: listaDeResponsaveis[posicao].nomeResp
+                }
+                localStorage.setItem('usuarioLogado', JSON.stringify(this.usuarioLogado))
+                alert(`Bem-vindo(a), ${this.usuarioLogado.nome}!`)
+                window.location.href = "inicioIN.html"
+            } else {
+                alert('Senha inválida!')
+            }
+        } else {
+            alert('Usuário inválido!')
+            return
+        }
+    }
+}
+
 // ----- CRUD -----
 
 function cadastrarNovoEvento() {
+    usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"))
     validaListaEventosDoLocalStorage()
     usuarioSimulado = buscarUsuarioAleatorio()
-    alert(`Usuário [${usuarioSimulado.nome}] fez um registro agora!`)
     idUsuario = usuarioSimulado.id
     nomeUsuario = usuarioSimulado.nome
     data = instanciaDataAtual()
@@ -55,24 +110,15 @@ function cadastrarNovoEvento() {
     numPlat = gerarInteiroAleatorio(1, 20)
     plataformaNumerada = plat + numPlat
 
-    novoEvento = new Evento(this.idEvento, idUsuario, nomeUsuario, data, horario, plataformaNumerada)
+    this.novoEvento = new Evento(this.idEvento, idUsuario, nomeUsuario, data, horario, plataformaNumerada)
 
     listaDeEventos.push(novoEvento)
     localStorage.setItem("eventosKey", JSON.stringify(listaDeEventos))
-    //gerarModal(/*PARÂMETROS DO OBJETO EVENTO*/)
 
-    ShowModal()
+    if (this.novoEvento.idUsuario == this.usuarioLogado.id) {
+        ShowModal()
+    }
 
-}
-function ShowModal(){
-    let Modal = document.getElementById("modal")
-    Modal.classList.add("modal-show")
-
-    setTimeout(HideModal, 3000)
-}
-function HideModal(){
-    let Modal = document.getElementById("modal")
-    Modal.classList.remove("modal-show")
 }
 
 function tabelarEventosDoUsuarioLogado() {
@@ -143,12 +189,18 @@ function tabelarTodosEventos() {
 
 function buscarEventoPorId() {
     listaDeEventos = JSON.parse(localStorage.getItem("eventosKey"))
+    var flag = 0
     for (i = 0; i < listaDeEventos.length; i++) {
         if (listaDeEventos[i].idEvento == idEventoEditar.value) {
             this.eventoBuscado = listaDeEventos[i]
             posicao = i
+            flag++
             mostrarEventoPorId()
         }
+    }
+    if (flag == 0) {
+        alert(`ID inexistente: [${idEventoEditar.value}]`)
+        location.reload()
     }
 }
 
@@ -190,7 +242,16 @@ function editarEventoPorId() {
                 case 'plataforma':
                     listaDeEventos[posicao].plataforma = novoValorEditar.value
                     break
+                case "":
+                    alert('Selecione um campo!')
+                    return
             }
+
+            if (ehInputVazio(novoValorEditar.value)) {
+                alert('Preencha novo valor para o campo!')
+                return
+            }
+
             localStorage.setItem("eventosKey", JSON.stringify(listaDeEventos))
             alert('Registro editado!')
 
@@ -207,59 +268,50 @@ function limparObjetoLogado() {
     localStorage.setItem('usuarioLogado', '')
 }
 
-// ----- LOGIN -----
+// ----- MODAL -----
 
-function logar() {
+function ShowModal() {
+    let Modal = document.getElementById("modal")
+    Modal.classList.add("modal-show")
+    divModal()
+    setTimeout(HideModal, 5000)
+}
+function HideModal() {
+    let Modal = document.getElementById("modal")
+    Modal.classList.remove("modal-show")
+}
 
-    if (usuario.value === usuarioADMIN && senha.value === senhaADMIN) {
-        alert('Olá, ADMIN!')
-        usuarioLogado = usuarioADMIN
-        localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado))
-        window.location.href = "adminInicio.html"
-    } else {
-        listaDeUsuarios = JSON.parse(localStorage.getItem("usuariosKey"))
-        listaDeResponsaveis = JSON.parse(localStorage.getItem("responsaveisKey"))
+function divModal() {
 
-        // Verifica se há registros de usuários
-        if (ehListaVazia(listaDeUsuarios)) {
-            alert('Não há usuários cadastrados!')
-            return
-        }
-        // Valida preenchimento obrigatório dos campos
-        if (ehInputVazio(usuario.value) || ehInputVazio(senha.value)) {
-            alert('Não pode haver campos vazios')
-            return
-        }
-
-        if (ehCpfValido(listaDeUsuarios, usuario.value)) { // Valida CPF do titular
-            if (ehSenhaValida(listaDeUsuarios, senha.value, posicao)) {
-                this.usuarioLogado = {
-                    id: listaDeUsuarios[posicao].id,
-                    nome: listaDeUsuarios[posicao].nome
-                }
-                localStorage.setItem('usuarioLogado', JSON.stringify(this.usuarioLogado))
-                alert(`Bem-vindo(a), ${this.usuarioLogado.nome}!`)
-                window.location.href = "inicioIN.html"
-            } else {
-                alert('Senha inválida!')
-            }
-        } else if (ehCpfValido(listaDeResponsaveis, usuario.value)) { // Senão, valida CPF do responsável
-            if (ehSenhaValida(listaDeResponsaveis, senha.value, posicao)) {
-                this.usuarioLogado = {
-                    id: listaDeResponsaveis[posicao].idResp,
-                    nome: listaDeResponsaveis[posicao].nomeResp
-                }
-                localStorage.setItem('usuarioLogado', JSON.stringify(this.usuarioLogado))
-                alert(`Bem-vindo(a), ${this.usuarioLogado.nome}!`)
-                window.location.href = "inicioIN.html"
-            } else {
-                alert('Senha inválida!')
-            }
-        } else {
-            alert('Usuário inválido!')
-            return
-        }
-    }
+    document.getElementById("modal").innerHTML =
+        `<div class="content">
+        <span class="close" onclick="HideModal()">&times;</span>
+        <div class="tablehead" style="display: block;">
+            <div class="titulo">  
+            <h3>Usuário [${novoEvento.nomeUsuario}] registrou passagem</h3>
+            </div>
+            <table id="table">    
+                <thead>
+                    <th id="id">ID</th>               
+                    <th id="data">DATA</th>
+                    <th id="horario">HORARIO</th>
+                    <th id="plaforma">PLATAFORMA</th>
+                </thead>
+                <div id="tabelainfo">
+                </div>
+                <tbody id="tabelainfo">
+                    <tr align="center">
+                        <td class="idUsuario">${novoEvento.idEvento}</td>
+                        <td class="idUsuario">${novoEvento.data}</td>
+                        <td class="idUsuario">${novoEvento.horario}</td>
+                        <td class="idUsuario">${novoEvento.plataforma}</td>
+                    </tr>
+                </tbody>
+             
+            </table>
+        </div>
+    </div>
+`
 }
 
 // ----- VALIDAÇÕES -----
@@ -343,6 +395,232 @@ function instanciaHorarioAtual() {
     return `${horas}:${minutos}:${segundos}`
 }
 
+function gerarDadosApresentacao() {
+
+    var listaDeUsuarios = []
+    var listaDeResponsaveis = []
+    var listaDeEventos = []
+
+    var usuarioUm = {
+        id: '016f2e1d',
+        nome: 'Ana Paula Moraes',
+        cpf: '1234321',
+        senha: '123',
+        endereco: enderecoUm = {
+            cidade: 'São José',
+            bairro: 'Barreiros',
+            rua: 'Leoberto Leal',
+            numero: '1123',
+            complemento: 'Casa'
+        }
+    }
+
+    var usuarioDois = {
+        id: '64a7bb12',
+        nome: 'Bruno Alves',
+        cpf: '4321234',
+        senha: '456',
+        endereco: enderecoDois = {
+            cidade: 'Palhoça',
+            bairro: 'Pinheira',
+            rua: 'Geral da Pinheira',
+            numero: '222',
+            complemento: 'Casa'
+        }
+    }
+
+    var usuarioTres = {
+        id: '01ff0621',
+        nome: 'Daiana Mendes Silva',
+        cpf: '9876789',
+        senha: '9987',
+        endereco: enderecoTres = {
+            cidade: 'Florianópolis',
+            bairro: 'Estreito',
+            rua: 'Eng. Max de Souza',
+            numero: '144',
+            complemento: 'Casa'
+        }
+    }
+
+    var usuarioQuatro = {
+        id: '3e90e600',
+        nome: 'Evandro Lins',
+        cpf: '4567654',
+        senha: '3334',
+        endereco: enderecoQuatro = {
+            cidade: 'São José',
+            bairro: 'Bela Vista',
+            rua: 'Campeche',
+            numero: '445',
+            complemento: 'apto 120'
+        }
+    }
+
+    var usuarioCinco = {
+        id: '55d24fae',
+        nome: 'Gabriela Martins',
+        cpf: '555666',
+        senha: '22211',
+        endereco: enderecoCinco = {
+            cidade: 'São José',
+            bairro: 'Jardim Cidade',
+            rua: 'Manoel Dias',
+            numero: '30',
+            complemento: ''
+        }
+    }
+
+    listaDeUsuarios = [usuarioUm, usuarioDois, usuarioTres, usuarioQuatro, usuarioCinco]
+    localStorage.setItem("usuariosKey", JSON.stringify(listaDeUsuarios))
+
+    var responsavelUm = {
+        idResp: '01ff0621',
+        nomeResp: 'Fabrício Mendes Silva',
+        cpfResp: '45546767',
+        senhaResp: '8876',
+        enderecoResp: enderecoRespUm = {
+            cidadeResp: 'Florianópolis',
+            bairroResp: 'Estreito',
+            ruaResp: 'Eng. Max de Souza',
+            numeroResp: '144',
+            complementoResp: 'Casa'
+        }
+    }
+
+    var responsavelDois = {
+        idResp: '016f2e1d',
+        nomeResp: 'Túlio Santos Moraes',
+        cpfResp: '3334443',
+        senhaResp: '321',
+        enderecoResp: enderecoRespDois = {
+            cidadeResp: 'São José',
+            bairroResp: 'Barreiros',
+            ruaResp: 'Leoberto Leal',
+            numeroResp: '1140',
+            complementoResp: 'Casa'
+        }
+    }
+
+    listaDeResponsaveis = [responsavelUm, responsavelDois]
+    localStorage.setItem("responsaveisKey", JSON.stringify(listaDeResponsaveis))
+
+    var eventoUm = {
+        data: "terça, 21/junho/2022",
+        horario: "20:14:59",
+        idEvento: 1,
+        idUsuario: "64a7bb12",
+        nomeUsuario: "Bruno Alves",
+        plataforma: "C1"
+    }
+
+    var eventoDois = {
+        data: "terça, 21/junho/2022",
+        horario: "20:17:3",
+        idEvento: 2,
+        idUsuario: "64a7bb12",
+        nomeUsuario: "Bruno Alves",
+        plataforma: "B13"
+    }
+
+    var eventoTres = {
+        data: "terça, 21/junho/2022",
+        horario: "20:21:16",
+        idEvento: 3,
+        idUsuario: "01ff0621",
+        nomeUsuario: "Daiana Mendes Silva",
+        plataforma: "B19"
+    }
+
+    var eventoQuatro = {
+        data: "terça, 22/junho/2022",
+        horario: "20:17:24",
+        idEvento: 4,
+        idUsuario: "64a7bb12",
+        nomeUsuario: "Bruno Alves",
+        plataforma: "E18"
+    }
+
+    var eventoCinco = {
+        data: "terça, 22/junho/2022",
+        horario: "10:18:39",
+        idEvento: 5,
+        idUsuario: "01ff0621",
+        nomeUsuario: "Daiana Mendes Silva",
+        plataforma: "C19"
+    }
+
+    var eventoSeis = {
+        data: "terça, 23/junho/2022",
+        horario: "11:23:49",
+        idEvento: 6,
+        idUsuario: "3e90e600",
+        nomeUsuario: "Evandro Lins",
+        plataforma: "C15"
+    }
+
+    var eventoSete = {
+        data: "terça, 23/junho/2022",
+        horario: "11:25:29",
+        idEvento: 7,
+        idUsuario: "3e90e600",
+        nomeUsuario: "Evandro Lins",
+        plataforma: "C16",
+    }
+
+    var eventoOito = {
+        data: "terça, 23/junho/2022",
+        horario: "11:27:34",
+        idEvento: 8,
+        idUsuario: "3e90e600",
+        nomeUsuario: "Evandro Lins",
+        plataforma: "C17"
+    }
+
+    var eventoNove = {
+        data: "terça, 24/junho/2022",
+        horario: "14:25:49",
+        idEvento: 9,
+        idUsuario: "01ff0621",
+        nomeUsuario: "Daiana Mendes Silva",
+        plataforma: "D16"
+    }
+
+    var eventoDez = {
+        data: "terça, 25/junho/2022",
+        horario: "14:35:36",
+        idEvento: 10,
+        idUsuario: "01ff0621",
+        nomeUsuario: "Daiana Mendes Silva",
+        plataforma: "D16"
+    }
+
+    var eventoOnze = {
+        data: "terça, 26/junho/2022",
+        horario: "21:47:59",
+        idEvento: 11,
+        idUsuario: "55d24fae",
+        nomeUsuario: "Gabriela Martins",
+        plataforma: "C7"
+    }
+
+    var eventoDoze = {
+        data: "sexta, 26/junho/2022",
+        horario: "08:43:51",
+        idEvento: 12,
+        idUsuario: "55d24fae",
+        nomeUsuario: "Gabriela Martins",
+        plataforma: "A3"
+    }
+
+    listaDeEventos = [
+        eventoUm, eventoDois, eventoTres, eventoQuatro,
+        eventoCinco, eventoSeis, eventoSete, eventoOito,
+        eventoNove, eventoDez, eventoOnze, eventoDoze
+    ]
+    localStorage.setItem("eventosKey", JSON.stringify(listaDeEventos))
+}
+
 // ----- SIMULADORES -----
 // DEIXARÃO DE EXISTIR
 function gerarInteiroAleatorio(min, max) {
@@ -357,7 +635,8 @@ function gerarSecaoPlataformaAleatoria() {
 
 function buscarUsuarioAleatorio() {
     listaDeUsuarios = JSON.parse(localStorage.getItem("usuariosKey"))
-    var tamanhoLista = listaDeUsuarios.length
-    var posicaoNaLista = gerarInteiroAleatorio(1, tamanhoLista)
+
+    var tamanhoLista = listaDeUsuarios.length - 1
+    var posicaoNaLista = gerarInteiroAleatorio(0, tamanhoLista)
     return listaDeUsuarios[posicaoNaLista]
 }
