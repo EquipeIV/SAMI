@@ -27,8 +27,6 @@ var enderecoUsuarioBuscado
 var responsavelBuscado
 var enderecoResponsavelBuscado
 
-var separacao = '<center> ============================================================= <br>' + ' ============================================================= <br><br></center>'
-
 var stringEditarResponsavel = '<center><select name="atributosResponsavel" id="atributosResponsavel">' +
     '<option value="" disabled selected>Atributo responsável...</option>' +
     '<option value="nome">NOME</option>' +
@@ -420,10 +418,22 @@ function deletarResponsavel() {
     listaDeResponsaveis = JSON.parse(localStorage.getItem("responsaveisKey"))
     usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"))
     if (temResponsavel()) {
-        listaDeResponsaveis.splice(this.posicaoResp, 1)
-        localStorage.setItem("responsaveisKey", JSON.stringify(listaDeResponsaveis))
-        alert('Responsável excluído!')
-        location.reload()
+        alert('Tem resp!')
+        if (usuarioLogado.nome == listaDeResponsaveis[this.posicaoResp].nomeResp) {
+            alert('Logado é resp!')
+            alert(this.posicaoResp)
+            listaDeResponsaveis.splice(this.posicaoResp, 1)
+            localStorage.setItem("responsaveisKey", JSON.stringify(listaDeResponsaveis))
+            alert('Responsável excluído!')
+            limparObjetoLogado()
+            location.reload()
+            window.location.href = 'inicioOUT.html'
+        } else {
+            listaDeResponsaveis.splice(this.posicaoResp, 1)
+            localStorage.setItem("responsaveisKey", JSON.stringify(listaDeResponsaveis))
+            alert('Responsável excluído!')
+            location.reload()
+        }
     } else {
         alert('Você não possui responsável')
     }
@@ -447,7 +457,7 @@ function mostrarUsuarioBuscado() {
         this.usuarioBuscado = listaDeUsuarios[posicao]
         this.enderecoUsuarioBuscado = this.usuarioBuscado.endereco
         stringUsuario = `<center>
-        [USUÁRIO]<br><br> 
+        [USUÁRIO]<br>
             ID: ${usuarioBuscado.id}<br>
             NOME: ${usuarioBuscado.nome}<br>
             CPF: ${usuarioBuscado.cpf}<br>
@@ -467,7 +477,7 @@ function mostrarUsuarioBuscado() {
         this.responsavelBuscado = listaDeResponsaveis[posicaoResp]
         this.enderecoResponsavelBuscado = this.responsavelBuscado.enderecoResp
         stringResponsavel = `<center>
-        [RESPONSÁVEL]<br><br> 
+        [RESPONSÁVEL]<br>
             NOME: ${responsavelBuscado.nomeResp}<br>
             CPF: ${responsavelBuscado.cpfResp}<br>
             SENHA: ${responsavelBuscado.senhaResp}<br>
@@ -481,7 +491,7 @@ function mostrarUsuarioBuscado() {
     document.querySelector('#usuarioBuscado').innerHTML = stringUsuario
 
     if (stringResponsavel != '') {
-        document.querySelector('#responsavelBuscado').innerHTML = separacao + stringResponsavel
+        document.querySelector('#responsavelBuscado').innerHTML = stringResponsavel
     }
 }
 
@@ -672,6 +682,7 @@ function existeResponsavel(idCheck) {
 }
 
 function existeIdResponsavel(idCheck) {
+    listaDeResponsaveis = JSON.parse(localStorage.getItem("responsaveisKey"))
     var retorno = false
     for (i = 0; i < listaDeResponsaveis.length; i++) {
         if (listaDeResponsaveis[i].idResp == idCheck) {

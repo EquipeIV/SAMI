@@ -99,7 +99,6 @@ function logar() {
 // ----- CRUD -----
 
 function cadastrarNovoEvento() {
-    usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"))
     validaListaEventosDoLocalStorage()
     usuarioSimulado = buscarUsuarioAleatorio()
     idUsuario = usuarioSimulado.id
@@ -115,10 +114,13 @@ function cadastrarNovoEvento() {
     listaDeEventos.push(novoEvento)
     localStorage.setItem("eventosKey", JSON.stringify(listaDeEventos))
 
-    if (this.novoEvento.idUsuario == this.usuarioLogado.id) {
-        ShowModal()
+    usuarioLogado = localStorage.getItem("usuarioLogado")
+    if (usuarioLogado != '' || usuarioLogado != null || usuarioLogado != undefined) {
+        usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"))
+        if (this.novoEvento.idUsuario == this.usuarioLogado.id) {
+            ShowModal()
+        }
     }
-
 }
 
 function tabelarEventosDoUsuarioLogado() {
@@ -282,13 +284,15 @@ function HideModal() {
 }
 
 function divModal() {
+    listaDeEventos = JSON.parse(localStorage.getItem("eventosKey"))
+    var ultimoEvento = listaDeEventos[listaDeEventos.length - 1]
 
     document.getElementById("modal").innerHTML =
         `<div class="content">
         <span class="close" onclick="HideModal()">&times;</span>
         <div class="tablehead" style="display: block;">
             <div class="titulo">  
-            <h3>Usuário [${novoEvento.nomeUsuario}] registrou passagem</h3>
+            <h3>Usuário [${ultimoEvento.nomeUsuario}] registrou passagem</h3>
             </div>
             <table id="table">    
                 <thead>
@@ -301,10 +305,10 @@ function divModal() {
                 </div>
                 <tbody id="tabelainfo">
                     <tr align="center">
-                        <td class="idUsuario">${novoEvento.idEvento}</td>
-                        <td class="idUsuario">${novoEvento.data}</td>
-                        <td class="idUsuario">${novoEvento.horario}</td>
-                        <td class="idUsuario">${novoEvento.plataforma}</td>
+                        <td class="idUsuario">${ultimoEvento.idEvento}</td>
+                        <td class="idUsuario">${ultimoEvento.data}</td>
+                        <td class="idUsuario">${ultimoEvento.horario}</td>
+                        <td class="idUsuario">${ultimoEvento.plataforma}</td>
                     </tr>
                 </tbody>
              

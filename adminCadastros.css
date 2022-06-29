@@ -143,11 +143,16 @@ body {
     width: 40%;
     height: auto;
     display: flex;
+
     flex-direction: column;
-    align-items: center;
     overflow-x: auto;
 }
+.usuarioBuscado{
 
+}
+.responsavelBuscado{
+    align-items: center;
+}
 .edit2 {
     width: 30%;
     height: 100%;
