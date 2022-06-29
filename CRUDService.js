@@ -5,7 +5,10 @@ var usuarioLogado
 
 var novoEvento
 var idEvento = 1
-var nomeUsuario, data, horario, plataformavar listaDeEventos = []
+var nomeUsuario
+var data
+var horario
+var plataformavar
 var listaDeUsuarios = []
 var listaDeResponsaveis = []
 var usuarioLogado
