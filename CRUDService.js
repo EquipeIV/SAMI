@@ -523,7 +523,7 @@ function gerarDadosApresentacao() {
     localStorage.setItem("usuariosKey", JSON.stringify(listaDeUsuarios))
 
     var responsavelUm = {
-        idResp: ' A9 84 F0 97',
+        idResp: '016f2e1d',
         nomeResp: 'Fabrício Mendes Silva',
         cpfResp: '45546767',
         senhaResp: '8876',
@@ -537,7 +537,7 @@ function gerarDadosApresentacao() {
     }
 
     var responsavelDois = {
-        idResp: '016f2e1d',
+        idResp: 'A9 84 F0 97',
         nomeResp: 'Túlio Santos Moraes',
         cpfResp: '3334443',
         senhaResp: '321',
@@ -688,4 +688,3 @@ function buscarUsuarioAleatorio() {
     var posicaoNaLista = gerarInteiroAleatorio(0, tamanhoLista)
     return listaDeUsuarios[posicaoNaLista]
 }
-
