@@ -18,8 +18,10 @@ var idEvento = 1
 var nomeUsuario, data, horario, plataforma
 var plataformaNumerada
 
-var usuarioADMIN = 'admin'
-var senhaADMIN = 'admin'
+var usuarioADMIN = {
+    nome:"admin",
+    senha:"admin"
+}
 var usuario = document.getElementById("usuarioInput")
 var senha = document.getElementById("senhaInput")
 var usuarioRegistrado
@@ -59,7 +61,7 @@ function Evento(idEvento, idUsuario, nomeUsuario, data, horario, plataforma) {
 
 function logar() {
 
-    if (usuario.value === usuarioADMIN && senha.value === senhaADMIN) {
+    if (usuario.value === usuarioADMIN.nome && senha.value === usuarioADMIN.senha) {
         alert('Olá, ADMIN!')
         usuarioLogado = usuarioADMIN
         localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado))

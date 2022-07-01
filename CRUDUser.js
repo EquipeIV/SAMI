@@ -27,20 +27,20 @@ var enderecoUsuarioBuscado
 var responsavelBuscado
 var enderecoResponsavelBuscado
 
-var stringEditarResponsavel = '<center><select name="atributosResponsavel" id="atributosResponsavel">' +
+var stringEditarResponsavel = '<center><select id="atributosResp">' +
     '<option value="" disabled selected>Atributo responsável...</option>' +
-    '<option value="nome">NOME</option>' +
-    '<option value="cpf">CPF</option>' +
-    '<option value="senha">SENHA</option>' +
-    '<option value="cidade">CIDADE</option>' +
-    '<option value="bairro">BAIRRO</option>' +
-    '<option value="rua">RUA</option>' +
-    '<option value="numero">NÚMERO</option>' +
-    '<option value="complemento">COMPLEMENTO</option>' +
+    '<option value="nomeResp">NOME</option>' +
+    '<option value="cpfResp">CPF</option>' +
+    '<option value="senhaResp">SENHA</option>' +
+    '<option value="cidadeResp">CIDADE</option>' +
+    '<option value="bairroResp">BAIRRO</option>' +
+    '<option value="ruaResp">RUA</option>' +
+    '<option value="numeroResp">NÚMERO</option>' +
+    '<option value="complementoResp">COMPLEMENTO</option>' +
     '</select><br><br>' +
     '<label>Novo valor</label><br>' +
-    '<input type="text" id="novoValorEditarResponsavel"><br><br>' +
-    '<button onclick="editarResponsavel()">EDITAR RESPONSÁVEL</button><br><br>' +
+    '<input type="text" id="novoValorInputResp"><br><br>' +
+    '<button onclick="editarUsuario()">EDITAR RESPONSÁVEL</button><br><br>' +
     '<button onclick="deletarResponsavel()">DELETAR RESPONSÁVEL</button><br><br></center>'
 
 // ----- INPUTS HTML USUÁRIO-----
@@ -262,10 +262,24 @@ function editarUsuario() {
     listaDeUsuarios = JSON.parse(localStorage.getItem("usuariosKey"))
     listaDeResponsaveis = JSON.parse(localStorage.getItem("responsaveisKey"))
 
-    if (document.getElementById("atributosResp") != null)
+    if (ehInputVazio(novoValorInput.value) && document.getElementById("atributosResp") != null){
         selectAtributosUsuario = document.getElementById("atributosResp")
+        novoValorInput = document.getElementById("novoValorInputResp")
+
+    }
     if (ehSelectValido()) {
         if (!ehInputVazio(novoValorInput.value)) {
+
+        for(i = 0; i < listaDeUsuarios.length; i ++){
+            if(idUsuarioBuscar.value == listaDeUsuarios[i].id){
+                posicao = i
+            }
+        }
+        for(i = 0; i < listaDeResponsaveis.length; i ++ ){
+            if(idUsuarioBuscar.value == listaDeResponsaveis[i].idResp){
+                posicaoResp = i
+            }
+        }
             switch (selectAtributosUsuario.value) {
 
                 case 'nome':
@@ -304,36 +318,36 @@ function editarUsuario() {
                     listaDeUsuarios[posicao].senha = novoValorInput.value
                     break
 
-                case 'nomeResponsavel':
+                case 'nomeResp':
                     listaDeResponsaveis[posicaoResp].nomeResp = novoValorInput.value
                     break
 
 
-                case 'cpfResponsavel':
+                case 'cpfResp':
                     listaDeResponsaveis[posicaoResp].cpfResp = novoValorInput.value
                     break
 
-                case 'cidadeResponsavel':
+                case 'cidadeResp':
                     listaDeResponsaveis[posicaoResp].enderecoResp.cidadeResp = novoValorInput.value
                     break
 
-                case 'bairroResponsavel':
+                case 'bairroResp':
                     listaDeResponsaveis[posicaoResp].enderecoResp.bairroResp = novoValorInput.value
                     break
 
-                case 'ruaResponsavel':
+                case 'ruaResp':
                     listaDeResponsaveis[posicaoResp].enderecoResp.ruaResp = novoValorInput.value
                     break
 
-                case 'numeroResponsavel':
+                case 'numeroRes':
                     listaDeResponsaveis[posicaoResp].enderecoResp.numeroResp = novoValorInput.value
                     break
 
-                case 'complementoResponsavel':
+                case 'complementoResp':
                     listaDeResponsaveis[posicaoResp].enderecoResp.complementoResp = novoValorInput.value
                     break
 
-                case 'senhaResponsavel':
+                case 'senhaResp':
                     listaDeResponsaveis[posicaoResp].senhaResp = novoValorInput.value
             }
 
@@ -368,6 +382,7 @@ function encontrarLogadoNaListaDeUsuarios() {
         if (usuarioLogado.id == listaDeUsuarios[i].id) {
             flag = 1
             this.posicao = i
+            console.log(posicao)
         }
     }
 
@@ -417,6 +432,18 @@ function adicionarResponsavel() {
 function deletarResponsavel() {
     listaDeResponsaveis = JSON.parse(localStorage.getItem("responsaveisKey"))
     usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"))
+    if(usuarioLogado.nome == "admin"){
+        for(i = 0; i < listaDeResponsaveis.length; i ++ ){
+            if(idUsuarioBuscar.value == listaDeResponsaveis[i].idResp){
+                posicaoResp = i
+            }
+        }
+        listaDeResponsaveis.splice(posicaoResp, 1)
+        localStorage.setItem("responsaveisKey", JSON.stringify(listaDeResponsaveis))
+        alert('Responsável excluído!')
+        location.reload()
+        return
+    }
     if (temResponsavel()) {
         alert('Tem resp!')
         if (usuarioLogado.nome == listaDeResponsaveis[this.posicaoResp].nomeResp) {
